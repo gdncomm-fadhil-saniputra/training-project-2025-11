@@ -1,2 +1,7 @@
-package com.blibli.training.cart.dto;public class UpdateQtyCartRequest {
+package com.blibli.training.cart.dto;
+
+import lombok.Data;
+
+@Data
+public class UpdateQtyCartRequest {
 }
