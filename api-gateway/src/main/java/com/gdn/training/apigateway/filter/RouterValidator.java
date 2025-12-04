@@ -16,6 +16,7 @@ public class RouterValidator {
                         "/eureka",
                         "/member/api/members/register",
                         "/member/api/members/login",
+                        "/member/api/members/username",
                         "/product/api/products/name",
                         "/product/api/products/all");
 
