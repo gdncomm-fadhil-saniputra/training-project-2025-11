@@ -6,6 +6,8 @@ import com.blibli.training.product.entity.Product;
 import com.blibli.training.product.repository.ProductRepository;
 import com.blibli.training.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
 
     @Override
+    @CacheEvict(value = "products", allEntries = true)
     public ProductResponse createProduct(ProductRequest request) {
         Product product = Product.builder()
                 .productName(request.getProductName())
@@ -29,6 +32,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Cacheable(value = "products", key = "#name")
     public ProductResponse findByName(String name) {
         Product product = productRepository.findByProductName(name)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
@@ -36,6 +40,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Cacheable(value = "products")
     public List<ProductResponse> getAllProduct() {
         return productRepository.findAll().stream()
                 .map(this::mapToResponse)
@@ -43,8 +48,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Cacheable(value = "products", key = "{#query, #page, #size}")
     public List<ProductResponse> searchProduct(String query, int page, int size) {
-        return productRepository.findByProductNameContainingIgnoreCase(query, PageRequest.of(page, size)).stream()
+        String search = query.contains("%") ? query : "%" + query + "%";
+        return productRepository.findByProductNameLikeIgnoreCase(search, PageRequest.of(page, size)).stream()
                 .map(this::mapToResponse)
                 .collect(java.util.stream.Collectors.toList());
     }
