@@ -10,6 +10,8 @@ import com.blibli.training.cart.repository.CartRepository;
 import com.blibli.training.cart.service.CartService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +30,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     @Transactional
+    @CachePut(value = "carts", key = "#username")
     public CartResponse addToBag(String username, String productName, int quantity) {
         // Validate User
         try {
@@ -74,6 +77,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    @Cacheable(value = "carts", key = "#username")
     public CartResponse getAllCart(String username) {
         // Validate User
         try {
@@ -83,9 +87,9 @@ public class CartServiceImpl implements CartService {
         }
         // Find Cart in Cart service
         Cart cart = cartRepository.findByUsername(username)
-            .orElseGet(() -> {
-                throw new RuntimeException("User " + username + "has no item in cart");
-            });
+                .orElseGet(() -> {
+                    throw new RuntimeException("User " + username + "has no item in cart");
+                });
 
         return mapToResponse(cart);
     }
