@@ -17,6 +17,7 @@ public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private final com.blibli.training.member.client.AuthClient authClient;
+    private final org.springframework.data.redis.core.StringRedisTemplate redisTemplate;
 
     @Override
     public MemberResponse register(RegisterRequest request) {
@@ -75,10 +76,13 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void logout(String token) {
+        // Blocklist the token in Redis with a TTL (e.g., 24 hours)
+        redisTemplate.opsForValue().set("blacklist:" + token, "true", java.time.Duration.ofHours(24));
         authClient.logout(token);
     }
 
     @Override
+    @org.springframework.cache.annotation.Cacheable(value = "members", key = "#username")
     public MemberResponse findByUsername(String username) {
         com.blibli.training.member.entity.Member member = memberRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("Member not found"));

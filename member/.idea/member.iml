@@ -127,6 +127,22 @@
     <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-commons:4.1.0" level="project" />
     <orderEntry type="library" name="Maven: io.github.openfeign:feign-core:13.1" level="project" />
     <orderEntry type="library" name="Maven: io.github.openfeign:feign-slf4j:13.1" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-data-redis:3.2.3" level="project" />
+    <orderEntry type="library" name="Maven: io.lettuce:lettuce-core:6.3.1.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-common:4.1.107.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-handler:4.1.107.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-resolver:4.1.107.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-buffer:4.1.107.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-transport-native-unix-common:4.1.107.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-codec:4.1.107.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-transport:4.1.107.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.projectreactor:reactor-core:3.6.3" level="project" />
+    <orderEntry type="library" name="Maven: org.reactivestreams:reactive-streams:1.0.4" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.data:spring-data-redis:3.2.3" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.data:spring-data-keyvalue:3.2.3" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-oxm:6.1.4" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-cache:3.2.3" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-context-support:6.1.4" level="project" />
   </component>
   <component name="SonarLintModuleSettings">
     <option name="uniqueId" value="01eccb63-8462-4d33-8e92-cc490ada39e2" />
